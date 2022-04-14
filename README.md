@@ -9,7 +9,7 @@ Follow these steps:
   <li>Make sure that your new repo is publicly accessible.
   <li>Create a new branch with the name <b>“feat/deliverable”</b> derived from <b>main</b> on your forked repository.
   <li>Start working on the requirements specified below.
-  <li>In github, invite to you mentor as a contributor. </li>
+  <li>In github, invite your mentor as a contributor. </li>
   <li> When you finish all Acceptance Criteria (AC), create a PR and send it through this <a href=
               "https://forms.gle/3Ur985tUiEtgy2Xr7">form</a> </li>
 </ol>
