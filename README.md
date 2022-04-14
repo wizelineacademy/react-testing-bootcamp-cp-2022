@@ -2,7 +2,7 @@
 
 ### Before you start
 
-Follow these steps before you begin:
+Follow these steps:
 <ol>
   <li>Fork  <a href=
               https://github.com/wizelineacademy/URL-CAPSTONE-PROJECT">this repo</a> into your GitHub account.
