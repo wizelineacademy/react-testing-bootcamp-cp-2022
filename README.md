@@ -10,7 +10,8 @@ Follow these steps:
   <li>Create a new branch with the name <b>“feat/deliverable”</b> derived from <b>main</b> on your forked repository.
   <li>Start working on the requirements specified below.
   <li>In github, invite to you mentor as a contributor. </li>
-  <li> When you finish all Acceptance Criteria (AC), create a PR and send it through this [form](https://forms.gle/3Ur985tUiEtgy2Xr7)</li>
+  <li> When you finish all Acceptance Criteria (AC), create a PR and send it through this <a href=
+              "https://forms.gle/3Ur985tUiEtgy2Xr7">form</a> </li>
 </ol>
 
 For this challenge, you will create an awesome React App which fetches the "Picture of the day" from the NASA open `APOD API` applying TDD (Test Driven Development).
