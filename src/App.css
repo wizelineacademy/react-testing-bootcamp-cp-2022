@@ -1,7 +1,74 @@
 .App {
   text-align: center;
 }
+.Header-container {
+  background-color: rgb(226, 223, 218);
+  
+}
+.Header-tittle {
+  font-size: calc(20px + 4vmin);
+  font-weight: bold;
+  padding: 1%;
+}
 
+.Footer-container {
+  background-color: rgb(226, 223, 218);
+  margin-top: .5rem;
+}
+
+.Footer-tittle {
+  font-size: calc(5px + 1vmin);
+  font-weight: bold;
+  padding: 1%;
+}
+
+.Main-container {
+  background-color: rgb(226, 223, 218);
+  margin-top: .5rem;
+  
+}
+
+.Content-container {
+  display: flex;
+
+}
+
+.input-container {
+  font-size: calc(5px + 1vmin);
+  font-weight: bold;
+  padding: 1%;
+}
+
+.alert {
+  font-size: calc(5px + 1vmin);
+  font-weight: bold;
+  padding: 1%;
+  background-color: rgb(241, 208, 99);
+}
+
+.input-date {
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  background-image: url('https://www.iconpacks.net/icons/1/free-calendar-icon-865-thumb.png');
+  background-size: 30px 20px;
+  background-position: 11rem .5rem;
+  background-repeat: no-repeat;
+
+}
+
+.description-container {
+  padding: 1.5rem 1.5rem;
+  font-size: calc(10px + 1vmin);
+  font-weight: bold;
+  text-align: justify
+}
+
+.image-container {
+  padding: 1.5rem 1.5rem;
+  background-color: rgb(255, 255, 255);
+  
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
