@@ -1,3 +1,4 @@
+import APOD from "Components/APOD/APOD";
 import React from "react";
 
 const LandingPage = () => {
@@ -7,7 +8,7 @@ const LandingPage = () => {
         <h1>The Capstone Project</h1>
       </header>
       <main>
-        <div data-testid="APOD" />
+        <APOD />
       </main>
       <footer>
         <span>
