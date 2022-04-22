@@ -7,6 +7,11 @@ const LandingPage = () => {
         <h1>The Capstone Project</h1>
       </header>
       <main></main>
+      <footer>
+        <span>
+          Project created during Wizeline Academy React Testing Bootcamp
+        </span>
+      </footer>
     </div>
   );
 };
