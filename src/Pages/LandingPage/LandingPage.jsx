@@ -1,12 +1,7 @@
-import { useEffect } from "react";
+import React from 'react';
 
-
-const One = () => {
-
-    useEffect(() => {
-        
-    }, []);
-    return ( null );
+const LandingPage = () => {
+    return ( <div data-testid="LandingPage"> <h1>Project Title</h1></div> );
 }
  
-export default One;
+export default LandingPage;
