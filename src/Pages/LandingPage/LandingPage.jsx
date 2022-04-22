@@ -6,7 +6,9 @@ const LandingPage = () => {
       <header>
         <h1>The Capstone Project</h1>
       </header>
-      <main></main>
+      <main>
+        <div data-testid="APOD" />
+      </main>
       <footer>
         <span>
           Project created during Wizeline Academy React Testing Bootcamp

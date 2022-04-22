@@ -1,43 +1,48 @@
-import { getByText, render, screen } from '@testing-library/react';
-import React from 'react';
-import LandingPage from './LandingPage';
+import { getByText, render, screen } from "@testing-library/react";
+import React from "react";
+import LandingPage from "./LandingPage";
 
-describe("LandingPage tests",()=>{
+describe("LandingPage tests", () => {
+  const sut = () => render(<LandingPage />);
 
-    const sut = ()=>render(<LandingPage/>);
+  it("should have a Header with the title of the project", () => {
+    sut();
+    const headerEl = screen.getByRole("heading", { name: /Capstone Project/i });
 
-    it("should have a Header with the title of the project",()=>{
-        sut();
-        const headerEl = screen.getByRole("heading", {name: /Capstone Project/i});
+    expect(headerEl).toBeInTheDocument();
+  });
 
-        expect(headerEl).toBeInTheDocument();
-    })
+  it("should have a Main section", () => {
+    sut();
 
-    it("should have a Main section",()=>{
-        sut();
+    const mainSectionEl = screen.getByRole("main");
 
-        const mainSectionEl = screen.getByRole("main");
+    expect(mainSectionEl).toBeInTheDocument();
+  });
 
-        expect(mainSectionEl).toBeInTheDocument();
+  it("should have a footer section", () => {
+    sut();
 
-    })
+    const footerEl = screen.getByRole("contentinfo");
 
-    it("should have a footer section",()=>{
-        sut();
+    expect(footerEl).toBeInTheDocument();
+  });
 
-        const footerEl = screen.getByRole("contentinfo");
+  it("footer should contain  the message 'Project created during Wizeline Academy React Testing Bootcamp'", () => {
+    sut();
 
-        expect(footerEl).toBeInTheDocument();
-    })
+    const footerEl = screen.getByRole("contentinfo");
+    const legend = screen.getByText(
+      /Project created during Wizeline Academy React Testing Bootcamp/i
+    );
+    expect(legend).toBeInTheDocument();
+    expect(footerEl).toContainElement(legend);
+  });
+  it("sould render an APOD component", () => {
+    sut();
 
-    it("footer should contain  the message 'Project created during Wizeline Academy React Testing Bootcamp'",()=>{
-        sut();
+    const apodEl = screen.getByTestId(/APOD/i);
 
-
-        const footerEl = screen.getByRole("contentinfo");
-        const legend = screen.getByText(/Project created during Wizeline Academy React Testing Bootcamp/i);                
-        expect(legend).toBeInTheDocument();
-        expect(footerEl).toContainElement(legend);
-
-    })
-})    
+    expect(apodEl).toBeInTheDocument();
+  });
+});
