@@ -5,6 +5,12 @@ import React from 'react'
 
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import Content from '../../../components/main/Content'; 
+import NasaMock from "../../../__mocks__/nasaMock";
+import { rest } from 'msw'
+
+beforeAll(() => NasaMock.listen())
+afterEach(() => NasaMock.resetHandlers())
+afterAll(() => NasaMock.close())
 
 const setup = () => {
     const utils = render(<Content />);
@@ -24,5 +30,8 @@ describe("Content Component", () => {
         
     });
 
+    test("must get a image of API", () => {
+
+    });
 
 });

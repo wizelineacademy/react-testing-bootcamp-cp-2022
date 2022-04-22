@@ -3,7 +3,7 @@ import '../App.css';
 function Header() {
     return (
         <div className="Header-container">
-            <div className = "Header-tittle" >
+            <div className="Header-tittle" >
                 Picture of the Day 
             </div>
         </div>
