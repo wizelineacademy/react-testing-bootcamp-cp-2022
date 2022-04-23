@@ -1,4 +1,11 @@
-import { getByText, render, screen } from "@testing-library/react";
+import {
+  fireEvent,
+  getByText,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
+import moment from "moment";
 import React from "react";
 import LandingPage from "./LandingPage";
 
@@ -51,9 +58,20 @@ describe("LandingPage tests", () => {
     sut();
 
     const dateEl = screen.getByLabelText(/Date/i);
-    const today = new Date().toISOString().replace(/T.*/, "");
+    const today = moment().format("YYYY-MM-DD");
 
     expect(dateEl).toBeInTheDocument();
     expect(dateEl).toHaveAttribute("value", today);
+  });
+
+  it("should reload when selected date changed", async () => {
+    sut();
+
+    const dateEl = screen.getByLabelText(/Date/i);
+    await fireEvent.change(dateEl, { target: { value: "1995-11-13" } });
+
+    expect(
+      await screen.findByRole("heading", { name: "Virgo Cluster Galaxies" })
+    ).toBeInTheDocument();
   });
 });

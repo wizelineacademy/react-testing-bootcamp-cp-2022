@@ -1,8 +1,9 @@
+const moment = require("moment");
 const { LoadAPOD } = require("./APODHelper");
 
 describe("APOD Helper tests", () => {
   it("APOD should get a 200 status response ", async () => {
-    const date = new Date().toISOString().replace(/T.*/, "");
+    const date = moment().format("YYYY-MM-DD");
 
     const response = await LoadAPOD(date);
 
@@ -10,7 +11,7 @@ describe("APOD Helper tests", () => {
   });
 
   it("APOD should return image, explanation and title", async () => {
-    const date = new Date().toISOString().replace(/T.*/, "");
+    const date = moment().format("YYYY-MM-DD");
 
     const response = await LoadAPOD(date);
     const { url, title, explanation } = (await response).data;

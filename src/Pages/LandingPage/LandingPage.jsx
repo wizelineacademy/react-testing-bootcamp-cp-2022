@@ -1,5 +1,6 @@
 import APOD from "Components/APOD/APOD";
 import { LoadAPOD } from "Helpers/APODHelper";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 
 const LandingPage = () => {
@@ -11,7 +12,7 @@ const LandingPage = () => {
   });
 
   useEffect(() => {
-    const today = new Date().toISOString().replace(/T.*/, "");
+    const today = moment().format("YYYY-MM-DD");
     setSelectedDate(today);
     handleSelectedDateChanged(today);
   }, []);
@@ -26,6 +27,7 @@ const LandingPage = () => {
       }
 
       let { url, title, explanation } = (await response).data;
+
       setAPODData({ url, title, explanation });
     } catch (error) {
       console.log(error.response); //TODO: Show error message
@@ -48,7 +50,6 @@ const LandingPage = () => {
             onChange={(e) => handleSelectedDateChanged(e.currentTarget.value)}
           />
         </div>
-        <h1>{APODData.title}</h1>
         <APOD
           title={APODData.title}
           imgSource={APODData.url}
