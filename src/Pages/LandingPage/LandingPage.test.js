@@ -109,6 +109,7 @@ describe("LandingPage tests", () => {
     });
   });
 
+  //TODO: How to test this fail
   // it("should show a message when an unexpected error occurs",async ()=>{
   //   sut();
 
