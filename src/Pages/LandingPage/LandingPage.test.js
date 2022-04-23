@@ -38,11 +38,22 @@ describe("LandingPage tests", () => {
     expect(legend).toBeInTheDocument();
     expect(footerEl).toContainElement(legend);
   });
+
   it("sould render an APOD component", () => {
     sut();
 
     const apodEl = screen.getByTestId(/APOD/i);
 
     expect(apodEl).toBeInTheDocument();
+  });
+
+  it("should init with current date", () => {
+    sut();
+
+    const dateEl = screen.getByLabelText(/Date/i);
+    const today = new Date().toLocaleDateString();
+
+    expect(dateEl).toBeInTheDocument();
+    expect(dateEl).toHaveAttribute("value", today);
   });
 });
