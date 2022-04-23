@@ -1,16 +1,35 @@
 import APOD from "Components/APOD/APOD";
+import { LoadAPOD } from "Helpers/APODHelper";
 import React, { useEffect, useState } from "react";
 
 const LandingPage = () => {
   const [selectedDate, setSelectedDate] = useState();
+  const [APODData, setAPODData] = useState({
+    url: "",
+    title: "",
+    explanation: "",
+  });
+
   useEffect(() => {
     const today = new Date().toISOString().replace(/T.*/, "");
     setSelectedDate(today);
-    handleSelctedDateChanged(today);
+    handleSelectedDateChanged(today);
   }, []);
 
-  const handleSelctedDateChanged = (date) => {
-    console.log(date);
+  const handleSelectedDateChanged = async (date) => {
+    try {
+      let response = await LoadAPOD(date);
+      if (response.status !== 200) {
+        //TODO: Show error message
+        console.log("invalid response code");
+        return;
+      }
+
+      let { url, title, explanation } = (await response).data;
+      setAPODData({ url, title, explanation });
+    } catch (error) {
+      console.log(error.response); //TODO: Show error message
+    }
   };
 
   return (
@@ -26,11 +45,15 @@ const LandingPage = () => {
             name="date"
             id="date"
             value={selectedDate}
-            onChange={(e) => handleSelctedDateChanged(e.currentTarget.value)}
+            onChange={(e) => handleSelectedDateChanged(e.currentTarget.value)}
           />
         </div>
-        <h1>{selectedDate}</h1>
-        <APOD />
+        <h1>{APODData.title}</h1>
+        <APOD
+          title={APODData.title}
+          imgSource={APODData.url}
+          explanation={APODData.explanation}
+        />
       </main>
       <footer>
         <span>
