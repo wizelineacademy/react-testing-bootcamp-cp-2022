@@ -10,6 +10,7 @@ const LandingPage = () => {
     title: "",
     explanation: "",
   });
+  const [errorMessage, setErrorMessage] = useState();
 
   useEffect(() => {
     const today = moment().format("YYYY-MM-DD");
@@ -21,8 +22,9 @@ const LandingPage = () => {
     try {
       let response = await LoadAPOD(date);
       if (response.status !== 200) {
-        //TODO: Show error message
-        console.log("invalid response code");
+        let { msg } = (await response).data;
+        console.log(response.status, msg);
+        setErrorMessage(msg);
         return;
       }
 
@@ -30,7 +32,11 @@ const LandingPage = () => {
 
       setAPODData({ url, title, explanation });
     } catch (error) {
-      console.log(error.response); //TODO: Show error message
+      if (error.response.data) {
+        setErrorMessage(error.response.data.msg);
+        return;
+      }
+      setErrorMessage(error.response);
     }
   };
 
@@ -55,6 +61,9 @@ const LandingPage = () => {
           imgSource={APODData.url}
           explanation={APODData.explanation}
         />
+        {errorMessage && (
+          <div data-testid="error-message">ERROR:{errorMessage}</div>
+        )}
       </main>
       <footer>
         <span>

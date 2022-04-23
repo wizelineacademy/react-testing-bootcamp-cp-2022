@@ -7,6 +7,7 @@ import {
 } from "@testing-library/react";
 import moment from "moment";
 import React from "react";
+import { scryRenderedComponentsWithType } from "react-dom/test-utils";
 import LandingPage from "./LandingPage";
 
 describe("LandingPage tests", () => {
@@ -59,9 +60,11 @@ describe("LandingPage tests", () => {
 
     const dateEl = screen.getByLabelText(/Date/i);
     const today = moment().format("YYYY-MM-DD");
+    const errorMessageEl = screen.queryByTestId("error-message");
 
     expect(dateEl).toBeInTheDocument();
     expect(dateEl).toHaveAttribute("value", today);
+    expect(errorMessageEl).not.toBeInTheDocument();
   });
 
   it("should reload when selected date changed", async () => {
@@ -80,5 +83,17 @@ describe("LandingPage tests", () => {
     expect(
       await screen.findByRole("heading", { name: "Virgo Cluster Galaxies" })
     ).toBeInTheDocument();
+  });
+
+  it("should show message from API when invalid date value", async () => {
+    sut();
+
+    const dateEl = screen.getByLabelText(/Date/i);
+    await fireEvent.change(dateEl, { target: { value: "1975-11-13" } });
+
+    await waitFor(async () => {
+      const errorMessageEl = await screen.findByTestId("error-message");
+      expect(errorMessageEl).toBeInTheDocument();
+    });
   });
 });
