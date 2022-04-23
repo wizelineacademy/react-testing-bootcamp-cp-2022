@@ -1,0 +1,1 @@
+export const Header = () => <h1>TDD is an awesome philosophy</h1>;
