@@ -92,8 +92,32 @@ describe("LandingPage tests", () => {
     await fireEvent.change(dateEl, { target: { value: "1975-11-13" } });
 
     await waitFor(async () => {
-      const errorMessageEl = await screen.findByTestId("error-message");
+      const errorMessageEl = screen.queryByTestId("error-message");
       expect(errorMessageEl).toBeInTheDocument();
     });
   });
+
+  it("should show message when get unexpected error", async () => {
+    sut();
+
+    const dateEl = screen.getByLabelText(/Date/i);
+    await fireEvent.change(dateEl, { target: { value: "1975-11-13" } });
+
+    await waitFor(async () => {
+      const errorMessageEl = screen.queryByTestId("error-message");
+      expect(errorMessageEl).toBeInTheDocument();
+    });
+  });
+
+  // it("should show a message when an unexpected error occurs",async ()=>{
+  //   sut();
+
+  //   const dateEl = screen.getByLabelText(/Date/i);
+  //   await fireEvent.change(dateEl, { target: { value: "1975-11-13" } });
+
+  //   await waitFor(async () => {
+  //     const errorMessageEl = screen.queryByTestId("error-message");
+  //     expect(errorMessageEl).toBeInTheDocument();
+  //   });
+  // })
 });
