@@ -51,7 +51,7 @@ describe("LandingPage tests", () => {
     sut();
 
     const dateEl = screen.getByLabelText(/Date/i);
-    const today = new Date().toLocaleDateString();
+    const today = new Date().toISOString().replace(/T.*/, "");
 
     expect(dateEl).toBeInTheDocument();
     expect(dateEl).toHaveAttribute("value", today);

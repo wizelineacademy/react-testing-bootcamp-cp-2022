@@ -4,9 +4,14 @@ import React, { useEffect, useState } from "react";
 const LandingPage = () => {
   const [selectedDate, setSelectedDate] = useState();
   useEffect(() => {
-    const today = new Date().toLocaleDateString();
+    const today = new Date().toISOString().replace(/T.*/, "");
     setSelectedDate(today);
+    handleSelctedDateChanged(today);
   }, []);
+
+  const handleSelctedDateChanged = (date) => {
+    console.log(date);
+  };
 
   return (
     <div data-testid="LandingPage">
@@ -16,7 +21,13 @@ const LandingPage = () => {
       <main>
         <div>
           <label htmlFor="date">Date:</label>
-          <input type="date" name="date" id="date" value={selectedDate} />
+          <input
+            type="date"
+            name="date"
+            id="date"
+            value={selectedDate}
+            onChange={(e) => handleSelctedDateChanged(e.currentTarget.value)}
+          />
         </div>
         <h1>{selectedDate}</h1>
         <APOD />
