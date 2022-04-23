@@ -70,6 +70,13 @@ describe("LandingPage tests", () => {
     const dateEl = screen.getByLabelText(/Date/i);
     await fireEvent.change(dateEl, { target: { value: "1995-11-13" } });
 
+    await waitFor(async () => {
+      const headingEl = await screen.findByRole("heading", {
+        name: "Virgo Cluster Galaxies",
+      });
+      expect(headingEl).toBeInTheDocument();
+    });
+
     expect(
       await screen.findByRole("heading", { name: "Virgo Cluster Galaxies" })
     ).toBeInTheDocument();
