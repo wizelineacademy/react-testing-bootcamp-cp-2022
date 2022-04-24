@@ -15,7 +15,7 @@ describe('Tests on Homeview', () => {
     render(<Home />);
 
     const footerEl = screen.getByText(
-      /project created during wizeline academy react testing bootcamp/
+      /Project created during Wizeline Academy React Testing Bootcamp/
     );
     expect(footerEl).toBeInTheDocument();
   });
