@@ -11,7 +11,7 @@ describe('Tests on Homeview', () => {
     expect(titleEl).toBeInTheDocument();
   });
 
-  test('should display a footer', () => {
+  test('should have a footer with the required text', () => {
     render(<Home />);
 
     const footerEl = screen.getByText(
