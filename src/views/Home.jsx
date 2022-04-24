@@ -1,14 +1,15 @@
-import { Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
+import { Footer } from '../components/Footer';
 
 export const Home = () => {
   return (
-    <>
-      <Typography variant='h1'>Astronomy Picture of the Day</Typography>
-      <footer>
-        <Typography variant='body2'>
-          Project created during Wizeline Academy React Testing Bootcamp
-        </Typography>
-      </footer>
-    </>
+    <Stack
+      sx={{ width: '100%', minHeight: '100vh' }}
+      justifyContent='space-between'>
+      <Typography variant='h3' textAlign='center' component='h1' sx={{ py: 4 }}>
+        Astronomy Picture of the Day
+      </Typography>
+      <Footer />
+    </Stack>
   );
 };
