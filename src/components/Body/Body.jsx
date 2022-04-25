@@ -1,7 +1,21 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const Body = () => {
   const [isApiFetched, setIsApiFetched] = useState(false);
+  const [apiData, setApiData] = useState({});
+  const handleApi = async () => {
+    // set to the isApiFetched state false
+    try {
+      //  make ajax call
+      // set to the apiData state
+    } catch (error) {
+      //  handleError
+    }
+
+    // set to the isApiFetched state true
+  };
+
+  useEffect(() => {});
 
   return (
     <div>
@@ -17,7 +31,7 @@ const Body = () => {
             <span>apo date</span>
             <img src='' alt='apo img' />
 
-            <aside></aside>
+            <aside>api content</aside>
           </>
         )}
       </section>

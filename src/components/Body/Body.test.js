@@ -45,5 +45,4 @@ describe('Body component', () => {
     expect(dateEl).toBeInTheDocument();
     expect(asideEl).toBeInTheDocument();
   });
-  it('should have the NASA APOD Description', () => {});
 });
