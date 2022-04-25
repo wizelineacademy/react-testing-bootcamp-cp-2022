@@ -6,7 +6,7 @@ export const fetchPictureOfTheDay = async (date) => {
   formatedDate = formatedDate.toLocaleDateString('en-CA');
   try {
     const response = await fetch(
-      `${apodPI}?api_key=${apodKey}&date=${formatedDate}`
+      `${apodPI}/planetary/apod?api_key=${apodKey}&date=${formatedDate}`
     );
     if (response.ok) {
       return response.json();

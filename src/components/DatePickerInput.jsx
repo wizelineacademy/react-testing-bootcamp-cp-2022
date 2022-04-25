@@ -34,11 +34,7 @@ export const DatePickerInput = ({
           <TextField
             {...params}
             size='small'
-            helperText={
-              !validDate
-                ? 'Please enter a date before today, and after 1970'
-                : ''
-            }
+            helperText={!validDate ? 'Please provide a valid date' : ''}
           />
         )}
       />

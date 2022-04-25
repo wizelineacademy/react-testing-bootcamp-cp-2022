@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { MainSection } from '../../components/MainSection';
+import testResponse from '../mocks/testResponse.json';
 
 describe('Test for Main section', () => {
   test('should have a date input element', () => {
@@ -16,13 +17,28 @@ describe('Test for Main section', () => {
     expect(submitButton).toBeInTheDocument();
   });
 
-  test('should have an image title', () => {
+  test('should have an image on the main section', async () => {
     render(<MainSection />);
+
+    const imageEl = await screen.findByRole('img');
+    expect(imageEl).toBeInTheDocument();
   });
 
-  test('should have a loading state if the date changes', () => {});
+  test('should have the image title on the main section', async () => {
+    render(<MainSection />);
 
-  test('should have an image element', () => {});
+    const titleEl = await screen.findByRole('heading', {
+      name: testResponse.title,
+    });
+    expect(titleEl).toBeInTheDocument();
+  });
 
-  test('should have text for an image description', () => {});
+  test('should have text for an image description', async () => {
+    render(<MainSection />);
+
+    const descriptionEl = await screen.findByText((content, element) =>
+      content.startsWith(testResponse.explanation.substring(0, 10))
+    );
+    expect(descriptionEl).toBeInTheDocument();
+  });
 });

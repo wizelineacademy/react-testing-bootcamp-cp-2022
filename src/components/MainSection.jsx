@@ -28,7 +28,7 @@ export const MainSection = () => {
       }
     };
     fetchImage();
-  }, [isLoading]);
+  }, [apodDate, isLoading]);
 
   const onSearchNewDate = (e) => {
     e.preventDefault();
