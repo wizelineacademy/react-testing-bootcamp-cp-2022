@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Apod } from '../components/Apod'
 import { ApodError } from '../components/Apod'
 import { getApod } from '../services/nasa'
+import { Grid, Input, Spacer } from '@nextui-org/react'
 
 export const Home = () => {
   const [apod, setApod] = useState(null)
@@ -21,13 +22,17 @@ export const Home = () => {
   return (
     <section>
       <form>
-        <label htmlFor="date">Pick a date: </label>
-        <input
-          id="date"
-          type="date"
-          value={date}
-          onChange={handleDateChange} />
+        <Grid>
+          <Input
+            width="186px"
+            label="Pick a date:"
+            type="date"
+            value={date}
+            onChange={handleDateChange}
+          />
+        </Grid>
       </form>
+      <Spacer y={1} />
       {error && <ApodError {...error} />}
       {apod && <Apod {...apod} />}
     </section>
