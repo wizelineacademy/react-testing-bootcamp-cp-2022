@@ -1,4 +1,11 @@
-import { render, screen } from '@testing-library/react';
+import {
+  fireEvent,
+  getByTestId,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { MainSection } from '../../components/MainSection';
 import testResponse from '../mocks/testResponse.json';
 
@@ -40,5 +47,10 @@ describe('Test for Main section', () => {
       content.startsWith(testResponse.explanation.substring(0, 10))
     );
     expect(descriptionEl).toBeInTheDocument();
+  });
+
+  test('should match with snapshot for skeleton purposes', () => {
+    const { container } = render(<MainSection />);
+    expect(container).toMatchSnapshot();
   });
 });

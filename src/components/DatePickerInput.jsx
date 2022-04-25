@@ -6,10 +6,10 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 export const DatePickerInput = ({
-  value,
-  setValue,
-  validDate,
-  setValidDate,
+  value = new Date(),
+  setValue = () => {},
+  validDate = true,
+  setValidDate = () => {},
   maxDate = new Date(),
   minDate = new Date(0),
 }) => {
