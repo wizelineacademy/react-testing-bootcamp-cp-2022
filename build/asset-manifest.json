@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/react-testing-bootcamp-cp-2022/static/css/main.95c76d88.css",
+    "main.js": "/react-testing-bootcamp-cp-2022/static/js/main.c9ee5220.js",
+    "static/js/787.af6e63b9.chunk.js": "/react-testing-bootcamp-cp-2022/static/js/787.af6e63b9.chunk.js",
+    "index.html": "/react-testing-bootcamp-cp-2022/index.html",
+    "main.95c76d88.css.map": "/react-testing-bootcamp-cp-2022/static/css/main.95c76d88.css.map",
+    "main.c9ee5220.js.map": "/react-testing-bootcamp-cp-2022/static/js/main.c9ee5220.js.map",
+    "787.af6e63b9.chunk.js.map": "/react-testing-bootcamp-cp-2022/static/js/787.af6e63b9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.95c76d88.css",
+    "static/js/main.c9ee5220.js"
+  ]
+}
