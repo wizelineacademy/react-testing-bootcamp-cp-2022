@@ -4,8 +4,6 @@ import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { Container, Navbar } from "react-bootstrap";
 
-import "./LandingPage.css";
-
 const LandingPage = () => {
   const [selectedDate, setSelectedDate] = useState();
 
