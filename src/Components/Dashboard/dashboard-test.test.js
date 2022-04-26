@@ -15,16 +15,7 @@ describe('Dasboard', () => {
     })
     it('the app should show the picture of the day for the given date when the user selects a date', async () => {
         setup()
-        const handleChange = jest.fn();
-        const { container } = render(
-            <input
-                type="date"
-                value="2020-05-12"
-                onChange={handleChange}
-            />
-        )
-        const input = container.firstChild;
-        fireEvent.change(input, { target: { value: "2020-05-12" } });
-        expect(handleChange).toHaveBeenCalled();
+        const datePicker = screen.findByRole('textbox', {type: 'date'});
+        screen.debug();
     })
 })

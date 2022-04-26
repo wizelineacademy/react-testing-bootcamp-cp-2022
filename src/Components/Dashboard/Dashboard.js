@@ -13,14 +13,11 @@ export const Dashboard = () => {
         let response = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${apiKey}&start_date=${date}&end_date=${date}`)
         response = await response.json()
         setPictureDayInfo(response)
-    }, [date]) // if userId changes, useEffect will run again
+    }, [date]) // if date changes, useEffect will run again
     
       useEffect(() => {
         fetchMyAPI()
       }, [fetchMyAPI])
-
-      console.log("pictureDayInfo",pictureDayInfo)
-      console.log("date",date)
 
     return (
       <>
