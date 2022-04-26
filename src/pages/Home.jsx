@@ -17,7 +17,10 @@ export const Home = () => {
       })
   }, [date])
 
-  const handleDateChange = (e) => setDate(e.currentTarget.value)
+  const handleDateChange = (e) => {
+    if (!e.currentTarget.validity.valid) return
+    setDate(e.currentTarget.value)
+  }
 
   return (
     <section>
