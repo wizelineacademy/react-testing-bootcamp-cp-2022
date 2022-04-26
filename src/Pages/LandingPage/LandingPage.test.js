@@ -1,10 +1,4 @@
-import {
-  fireEvent,
-  getByText,
-  render,
-  screen,
-  waitFor,
-} from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import moment from "moment";
 import React from "react";
 import LandingPage from "./LandingPage";

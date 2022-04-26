@@ -2,7 +2,7 @@ const moment = require("moment");
 const { LoadAPOD } = require("./APODHelper");
 
 describe("APOD Helper tests", () => {
-  it("APOD should get a 200 status response ", async () => {
+  it("APOD should get a 200 status response", async () => {
     const date = moment().format("YYYY-MM-DD");
 
     const response = await LoadAPOD(date);

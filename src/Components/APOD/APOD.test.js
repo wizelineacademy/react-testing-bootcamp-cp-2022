@@ -1,8 +1,6 @@
-import { getByText, render, screen } from "@testing-library/react";
-import { LoadAPOD } from "Helpers/APODHelper";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 import APOD from "./APOD";
-const moment = require("moment");
 
 describe("LandingPage tests", () => {
   it("Should have an img, title and explanation", () => {

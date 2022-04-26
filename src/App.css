@@ -43,3 +43,9 @@ footer{
   background-color: black;
   color: #fff;
 }
+
+.error{
+  background-color: red;
+  color: white;
+  padding: 0.1em;
+}
