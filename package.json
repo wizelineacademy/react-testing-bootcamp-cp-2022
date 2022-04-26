@@ -2,7 +2,7 @@
   "name": "react-testing-bootcamp-cp",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://rubenruvalcabac.github.io",
+  "homepage": "https://rubenruvalcabac.github.io/react-testing-bootcamp-cp-2022",
   "dependencies": {
     "axios": "^0.26.1",
     "bootstrap": "^5.1.3",
