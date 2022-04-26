@@ -3,6 +3,11 @@ header{
   color: midnightblue;
 }
 
+.navbar-elements{
+  display: flex;
+  column-gap: 1em;
+}
+
 .apod{
   height: 88vh;
   width: 100wh;

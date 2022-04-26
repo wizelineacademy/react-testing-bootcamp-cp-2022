@@ -2,18 +2,19 @@ import APOD from "Components/APOD/APOD";
 import { LoadAPOD } from "Helpers/APODHelper";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
-import { Container, Navbar } from "react-bootstrap";
+import { Container, Nav, Navbar, Spinner } from "react-bootstrap";
 
 const LandingPage = () => {
   const [selectedDate, setSelectedDate] = useState();
+  const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState();
+  const [unexpectedError, setUnexpectedError] = useState();
 
   const [APODData, setAPODData] = useState({
     url: "",
     title: "",
     explanation: "",
   });
-  const [errorMessage, setErrorMessage] = useState();
-  const [unexpectedError, setUnexpectedError] = useState();
 
   useEffect(() => {
     const today = moment().format("YYYY-MM-DD");
@@ -23,6 +24,7 @@ const LandingPage = () => {
 
   const handleSelectedDateChanged = async (date) => {
     try {
+      setLoading(true);
       setSelectedDate(date);
 
       let response = await LoadAPOD(date);
@@ -42,6 +44,8 @@ const LandingPage = () => {
         return;
       }
       setUnexpectedError(error.response);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -52,17 +56,20 @@ const LandingPage = () => {
           <Container>
             <Navbar.Brand>The Capstone Project</Navbar.Brand>
             <Navbar.Text>
-              <div className="form-group">
-                <input
-                  type="date"
-                  name="date"
-                  id="date"
-                  data-testid="date"
-                  value={selectedDate}
-                  onChange={(e) =>
-                    handleSelectedDateChanged(e.currentTarget.value)
-                  }
-                />
+              <div className="navbar-elements">
+                {loading && <Spinner animation="border" />}
+                <div className="form-group">
+                  <input
+                    type="date"
+                    name="date"
+                    id="date"
+                    data-testid="date"
+                    value={selectedDate}
+                    onChange={(e) =>
+                      handleSelectedDateChanged(e.currentTarget.value)
+                    }
+                  />
+                </div>
               </div>
             </Navbar.Text>
           </Container>
