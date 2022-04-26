@@ -2,9 +2,13 @@ import APOD from "Components/APOD/APOD";
 import { LoadAPOD } from "Helpers/APODHelper";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
+import { Container, Navbar } from "react-bootstrap";
+
+import "./LandingPage.css";
 
 const LandingPage = () => {
   const [selectedDate, setSelectedDate] = useState();
+
   const [APODData, setAPODData] = useState({
     url: "",
     title: "",
@@ -21,6 +25,8 @@ const LandingPage = () => {
 
   const handleSelectedDateChanged = async (date) => {
     try {
+      setSelectedDate(date);
+
       let response = await LoadAPOD(date);
       if (response.status !== 200) {
         let { msg } = (await response).data;
@@ -44,19 +50,27 @@ const LandingPage = () => {
   return (
     <div data-testid="LandingPage">
       <header>
-        <h1>The Capstone Project</h1>
+        <Navbar bg="light">
+          <Container>
+            <Navbar.Brand>The Capstone Project</Navbar.Brand>
+            <Navbar.Text>
+              <div className="form-group">
+                <input
+                  type="date"
+                  name="date"
+                  id="date"
+                  data-testid="date"
+                  value={selectedDate}
+                  onChange={(e) =>
+                    handleSelectedDateChanged(e.currentTarget.value)
+                  }
+                />
+              </div>
+            </Navbar.Text>
+          </Container>
+        </Navbar>
       </header>
       <main>
-        <div>
-          <label htmlFor="date">Date:</label>
-          <input
-            type="date"
-            name="date"
-            id="date"
-            value={selectedDate}
-            onChange={(e) => handleSelectedDateChanged(e.currentTarget.value)}
-          />
-        </div>
         <APOD
           title={APODData.title}
           imgSource={APODData.url}

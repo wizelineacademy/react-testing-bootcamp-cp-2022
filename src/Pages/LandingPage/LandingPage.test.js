@@ -7,7 +7,6 @@ import {
 } from "@testing-library/react";
 import moment from "moment";
 import React from "react";
-import { scryRenderedComponentsWithType } from "react-dom/test-utils";
 import LandingPage from "./LandingPage";
 
 describe("LandingPage tests", () => {
@@ -15,7 +14,7 @@ describe("LandingPage tests", () => {
 
   it("should have a Header with the title of the project", () => {
     sut();
-    const headerEl = screen.getByRole("heading", { name: /Capstone Project/i });
+    const headerEl = screen.getByText(/The Capstone Project/i);
 
     expect(headerEl).toBeInTheDocument();
   });
@@ -58,7 +57,7 @@ describe("LandingPage tests", () => {
   it("should init with current date", () => {
     sut();
 
-    const dateEl = screen.getByLabelText(/Date/i);
+    const dateEl = screen.getByTestId(/Date/i);
     const today = moment().format("YYYY-MM-DD");
     const errorMessageEl = screen.queryByTestId("error-message");
 
@@ -70,7 +69,7 @@ describe("LandingPage tests", () => {
   it("should reload when selected date changed", async () => {
     sut();
 
-    const dateEl = screen.getByLabelText(/Date/i);
+    const dateEl = screen.getByTestId(/Date/i);
     await fireEvent.change(dateEl, { target: { value: "1995-11-13" } });
 
     await waitFor(async () => {
@@ -88,7 +87,7 @@ describe("LandingPage tests", () => {
   it("should show message from API when invalid date value", async () => {
     sut();
 
-    const dateEl = screen.getByLabelText(/Date/i);
+    const dateEl = screen.getByTestId(/Date/i);
     await fireEvent.change(dateEl, { target: { value: "1975-11-13" } });
 
     await waitFor(async () => {
@@ -100,7 +99,7 @@ describe("LandingPage tests", () => {
   it("should show message when get unexpected error", async () => {
     sut();
 
-    const dateEl = screen.getByLabelText(/Date/i);
+    const dateEl = screen.getByTestId(/Date/i);
     await fireEvent.change(dateEl, { target: { value: "1975-11-13" } });
 
     await waitFor(async () => {

@@ -1,6 +1,8 @@
 import { getByText, render, screen } from "@testing-library/react";
+import { LoadAPOD } from "Helpers/APODHelper";
 import React from "react";
 import APOD from "./APOD";
+const moment = require("moment");
 
 describe("LandingPage tests", () => {
   it("Should have an img, title and explanation", () => {
@@ -12,16 +14,15 @@ describe("LandingPage tests", () => {
       />
     );
 
+    const apodEl = screen.getByTestId("APOD");
     const titleEl = screen.getByRole("heading", { name: /the title/i });
-    const imgEl = screen.getByRole("img");
     const explanationEl = screen.getByRole("article");
 
     expect(titleEl).toBeInTheDocument();
-    expect(imgEl).toBeInTheDocument();
-    expect(imgEl).toHaveAttribute(
-      "src",
-      "https://picsum.photos/seed/picsum/200/300"
+    expect(apodEl).toHaveStyle(
+      `background-image: url(https://picsum.photos/seed/picsum/200/300)`
     );
+
     expect(explanationEl).toBeInTheDocument();
   });
 });
