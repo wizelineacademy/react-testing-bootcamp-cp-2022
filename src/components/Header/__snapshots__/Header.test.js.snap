@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header should render the title 1`] = `
+<div>
+  <header>
+    <h1
+      class="sc-bczRLJ hAGsLM"
+    >
+      Nasa's picture of the day
+    </h1>
+  </header>
+</div>
+`;

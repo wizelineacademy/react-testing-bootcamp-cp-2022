@@ -1,5 +1,13 @@
-const Header = () => {
-	return <h1>Nasa's picture of the day</h1>;
-};
+import styled from "styled-components";
+
+const Header = () => (
+	<header>
+		<Title>Nasa's picture of the day</Title>
+	</header>
+);
+
+const Title = styled.h1`
+	text-align: center;
+`;
 
 export default Header;
