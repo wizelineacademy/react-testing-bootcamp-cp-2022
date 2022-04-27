@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Image when props are passed should display title, date, and image(url) 1`] = `
+<div>
+  <div
+    class="sc-bczRLJ jgolsG"
+  >
+    <h2>
+      The Full Moon of 2021
+    </h2>
+    <span>
+      01/01/2022
+    </span>
+    <img
+      alt="The Full Moon of 2021"
+      height="500"
+      src="https://apod.nasa.gov/apod/image/2201/MoonstripsAnnotatedIG_crop1024.jpg"
+    />
+  </div>
+</div>
+`;

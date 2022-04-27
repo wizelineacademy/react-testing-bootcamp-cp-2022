@@ -1,11 +1,27 @@
+import styled from "styled-components";
+
+import formatDate from "../../utils";
+
 const Image = ({ title, date, url }) => {
 	return (
-		<>
-			<p>{title}</p>
-			<p>{date}</p>
-			<img src={url} alt={title} />
-		</>
+		<Container>
+			<h2>{title}</h2>
+			<span>{formatDate(date)}</span>
+			<img src={url} alt={title} height={500} />
+		</Container>
 	);
 };
+
+const Container = styled.div`
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	h2 {
+		text-align: center;
+	}
+	span {
+		text-align: end;
+	}
+`;
 
 export default Image;

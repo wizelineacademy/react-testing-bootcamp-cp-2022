@@ -12,16 +12,17 @@ describe("Image", () => {
 				date: "2022-01-01",
 				url: "https://apod.nasa.gov/apod/image/2201/MoonstripsAnnotatedIG_crop1024.jpg",
 			};
-			setUp(props);
+			const { container } = setUp(props);
 
 			const imageTitle = screen.getByText(props.title);
-			const date = screen.getByText(props.date);
+			const date = screen.getByText("01/01/2022");
 			const image = screen.getByAltText(props.title);
 
 			expect(imageTitle).toBeInTheDocument();
 			expect(date).toBeInTheDocument();
 			expect(image).toBeInTheDocument();
 			expect(image).toHaveAttribute("src", props.url);
+			expect(container).toMatchSnapshot();
 		});
 	});
 });
