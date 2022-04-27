@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const fetchData = async ({ setApiData }) => {
+const fetchData = async ({ setApiData, date }) => {
   // set to the isApiFetched state false
   try {
-    debugger;
     //  make ajax call
     const info = await axios.get(
-      `https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY`
+      `https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date=${date}`
     );
 
     if (info.status === 200) {
@@ -19,15 +18,19 @@ const fetchData = async ({ setApiData }) => {
   }
 };
 
-// let todayDate = new Date();
-// todayDate.toISOString().split('T')[0];
+const todayDate = new Date().toISOString().split('T')[0];
 
 const Body = () => {
   const [apiData, setApiData] = useState({});
+  const [date, setDate] = useState(todayDate);
 
   useEffect(() => {
-    fetchData({ setApiData });
-  }, []);
+    fetchData({ setApiData, date });
+  }, [date]);
+
+  const changeDate = e => {
+    setDate(e.target.value);
+  };
 
   let ApodView;
   if (Object.keys(apiData).length !== 0) {
@@ -44,7 +47,13 @@ const Body = () => {
     <div>
       <div>
         <label htmlFor='apoDate'>Choose the date</label>
-        <input type='date' id='apoDate' name='apoDate'></input>
+        <input
+          type='date'
+          id='apoDate'
+          name='apoDate'
+          defaultValue={date}
+          onChange={changeDate}
+        ></input>
       </div>
       {ApodView}
     </div>
