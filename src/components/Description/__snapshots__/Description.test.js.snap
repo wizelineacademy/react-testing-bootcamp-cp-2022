@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Description when a description prop is passed should display said description 1`] = `
+<div>
+  <p
+    class="sc-bczRLJ cPltQN"
+    data-testid="description"
+  >
+    The calendar month, a full moon name, distance in kilometers, and angular size is indicated for each stripe.
+  </p>
+</div>
+`;
