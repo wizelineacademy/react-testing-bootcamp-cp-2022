@@ -16,22 +16,12 @@ describe('Body component', () => {
   it('should not show APOD data before api is not fetched', () => {
     setup();
 
-    const sectionEl = screen.getByTestId('section');
+    const sectionEl = screen.queryByTestId('section');
 
-    const imgEl = within(sectionEl).queryByAltText(/apo img/i);
-    const titleEl = within(sectionEl).queryByRole('heading');
-    const dateEl = within(sectionEl).queryByRole('heading', {
-      name: /^\d{2}\/\d{2}\/\d{4}$/
-    });
-    const asideEl = within(sectionEl).queryByRole('complementary');
-
-    // Before the api is used
-    expect(imgEl).not.toBeInTheDocument();
-    expect(titleEl).not.toBeInTheDocument();
-    expect(dateEl).not.toBeInTheDocument();
-    expect(asideEl).not.toBeInTheDocument();
+    // Before the api is fetch should not be an <section>
+    expect(sectionEl).not.toBeInTheDocument();
   });
-  it.only('should show APOD data after sucefull api fetch', async () => {
+  it('should show APOD data after sucefull api fetch', async () => {
     setup();
 
     const sectionEl = await screen.findByTestId('section');
