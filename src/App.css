@@ -2,18 +2,20 @@
   text-align: center;
 }
 .Header-container {
-  background-color: rgb(226, 223, 218);
+  background-color: #cacaca;
   
 }
 .Header-tittle {
   font-size: calc(20px + 4vmin);
   font-weight: bold;
   padding: 1%;
+  color: #2c2c2c;
 }
 
 .Footer-container {
-  background-color: rgb(226, 223, 218);
+  background-color: #cacaca;
   margin-top: .5rem;
+  position:static;
 }
 
 .Footer-tittle {
@@ -22,15 +24,22 @@
   padding: 1%;
 }
 
-.Main-container {
-  background-color: rgb(226, 223, 218);
+.main-container {
+  display: flex;
+  background-color: #cacaca;
   margin-top: .5rem;
-  
+  flex-direction: column;
+  align-items: center;
 }
 
-.Content-container {
+.content-container {
   display: flex;
+  flex-wrap: wrap;
+}
 
+.content-title {
+  
+  font-size: calc(8px + 3vmin);
 }
 
 .input-container {
@@ -47,59 +56,29 @@
 }
 
 .input-date {
-  padding: 12px 20px;
+  padding: 12px 24px;
   margin: 8px 0;
   box-sizing: border-box;
   background-image: url('https://www.iconpacks.net/icons/1/free-calendar-icon-865-thumb.png');
-  background-size: 30px 20px;
-  background-position: 11rem .5rem;
+  background-size: 30px 25px;
+  background-position: 11rem .4rem;
   background-repeat: no-repeat;
-
 }
 
-.description-container {
+.description {
   padding: 1.5rem 1.5rem;
   font-size: calc(10px + 1vmin);
-  font-weight: bold;
-  text-align: justify
+  text-align: justify;
+  width: 70vmin;
+
 }
 
 .image-container {
   padding: 1.5rem 1.5rem;
-  background-color: rgb(255, 255, 255);
-  
-}
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+  width: 70vmin;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.image-nasa{
+  width: 70vmin;
+  height: 50vmin;
 }

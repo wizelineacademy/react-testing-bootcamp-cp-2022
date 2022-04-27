@@ -4,7 +4,7 @@ function Header() {
     return (
         <div className="Header-container">
             <div className="Header-tittle" >
-                Picture of the Day 
+                PICTURE OF THE DAY
             </div>
         </div>
     );

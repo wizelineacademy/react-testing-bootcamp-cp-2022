@@ -17,14 +17,13 @@ const setup = () => {
 
 describe("Header Component", () => {
 
-    test("must display date on format YYYY/MM/DD", () => {
+    test("must display date on format YYYY-MM-DD", () => {
 
         const { input } = setup()
-        fireEvent.change(input, {target: {value: '1993/03/14'}})
+        fireEvent.change(input, {target: {value: '1993-03-14'}})
 
-        expect(input.value).toMatch(/^\d{4}\/(0?[1-9]|1[012])\/(0?[1-9]|[12][0-9]|3[01])$/)
+        expect(input.value).toMatch(/^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/)
+
     })
-
-    
 
 });

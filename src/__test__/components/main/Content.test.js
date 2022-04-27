@@ -3,34 +3,47 @@
 */
 import React from 'react'
 
-import { render, fireEvent, waitFor, screen } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import Content from '../../../components/main/Content'; 
-import NasaMock from "../../../__mocks__/nasaMock";
-import { rest } from 'msw'
+import nasaMock from "../../../__mocks__/nasaMock";
+import fetch from 'node-fetch'
 
-beforeAll(() => NasaMock.listen())
-afterEach(() => NasaMock.resetHandlers())
-afterAll(() => NasaMock.close())
+beforeAll(() => nasaMock.listen())
+afterAll(() => nasaMock.close())
 
-const setup = () => {
-    const utils = render(<Content />);
-    const image = utils.getByTitle('image-nasa');
-    return {
-        image,
-        ...utils,
-    }
+const responseApi = async () => { 
+    const nasaResponse = await fetch('https://api.nasa.gov/planetary/apod')
+    return  await nasaResponse.json()
 }
+
 describe("Content Component", () => {
 
-    test("must have a image", () => {
+    test("must have a image", async () => {
+        
+        
+        const utils = render(<Content data={await responseApi()}/>);
 
-        const { image } = setup();
+        const image = utils.getByTitle(/A Flag Shaped Aurora over Sweden/i);
 
-        expect(image.src).toContain('https://api.nasa.gov/assets/img/general/apod.jpg');
+        expect(image.src).toContain('https://apod.nasa.gov/apod/image/2103/AuroraFlag_Stalnacke_960.jpg');
         
     });
 
-    test("must get a image of API", () => {
+    test("must have explanation", async () => {
+
+        const utils = render(<Content data={await responseApi()}/>);
+
+        const input = utils.getByTestId('description').firstChild
+        
+        expect(input).toBeTruthy()
+
+    });
+
+    test("must have title", async () => {
+
+        const utils = render(<Content data={await responseApi()}/>);
+
+        expect(utils.getByText(/A Flag Shaped Aurora over Sweden/i)).toBeInTheDocument()
 
     });
 
