@@ -33,11 +33,10 @@ const Body = () => {
   if (Object.keys(apiData).length !== 0) {
     ApodView = (
       <section data-testid='section'>
-        <h1>{apiData.title}</h1>
-        <span>{apiData.date}</span> // getByText
-        {(apiData.media_type === 'image') &
-        <img src={apiData.url} alt='apo img' />}
-        <aside>{apiData.explanation}</aside>
+        {apiData.title && <h1>{apiData.title}</h1>}
+        {apiData.date && <div>{apiData.date}</div>}
+        {apiData.url && <img src={apiData.url} alt='apo img' />}
+        {apiData.explanation && <aside>{apiData.explanation}</aside>}
       </section>
     );
   }

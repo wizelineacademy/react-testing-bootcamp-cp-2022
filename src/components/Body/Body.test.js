@@ -30,14 +30,14 @@ describe('Body component', () => {
   it.only('should show APOD data after sucefull api fetch', async () => {
     render(<Body />);
 
-    const imgEl = await screen.findByAltText(/apo img/i);
-    const titleEl = await screen.findByRole('heading');
-    const dateEl = await screen.findByRole('heading', {
-      name: /^\d{2}\/\d{2}\/\d{4}$/
-    });
-    const asideEl = await screen.findByRole('complementary');
+    const sectionEl = await screen.findByTestId('section');
 
-    // Before the api is used
+    const imgEl = within(sectionEl).getByAltText(/apo img/i);
+    const titleEl = within(sectionEl).getByRole('heading');
+    const dateEl = within(sectionEl).getByText(/^\d{4}\-\d{2}\-\d{2}$/);
+    const asideEl = within(sectionEl).getByRole('complementary');
+
+    // All elements are conditional render inside section
     expect(imgEl).toBeInTheDocument();
     expect(titleEl).toBeInTheDocument();
     expect(dateEl).toBeInTheDocument();
