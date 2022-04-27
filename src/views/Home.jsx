@@ -7,9 +7,15 @@ export const Home = () => {
     <Stack
       sx={{ width: '100%', minHeight: '100vh' }}
       justifyContent='space-between'>
-      <Typography variant='h3' textAlign='center' component='h1' sx={{ py: 4 }}>
-        Astronomy Picture of the Day
-      </Typography>
+      <header>
+        <Typography
+          variant='h3'
+          textAlign='center'
+          component='h1'
+          sx={{ py: 4 }}>
+          Astronomy Picture of the Day
+        </Typography>
+      </header>
       <MainSection />
       <Footer />
     </Stack>

@@ -38,7 +38,7 @@ export const MainSection = () => {
   };
 
   return (
-    <Box sx={{ px: 4, flexGrow: 1 }}>
+    <Box sx={{ px: 4, flexGrow: 1 }} component='main'>
       <Stack
         component='form'
         onSubmit={onSearchNewDate}
