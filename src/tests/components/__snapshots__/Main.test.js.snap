@@ -14,8 +14,8 @@ exports[`Test for Main section should match with snapshot for skeleton purposes 
         <label
           class="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeSmall MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorPrimary css-1pysi21-MuiFormLabel-root-MuiInputLabel-root"
           data-shrink="false"
-          for=":ra:"
-          id=":ra:-label"
+          for=":r8:"
+          id=":r8:-label"
         >
           Pick a date
         </label>
@@ -27,7 +27,7 @@ exports[`Test for Main section should match with snapshot for skeleton purposes 
             aria-label="Choose date"
             aria-readonly="true"
             class="MuiOutlinedInput-input MuiInputBase-input MuiInputBase-inputSizeSmall css-1n4twyu-MuiInputBase-input-MuiOutlinedInput-input"
-            id=":ra:"
+            id=":r8:"
             readonly=""
             type="text"
             value=""
