@@ -6,12 +6,15 @@ const setup = () => {
 };
 
 describe('Body component', () => {
-  it('should have a date picker', () => {
+  it('should have a date picker with the current date', () => {
     setup();
+
+    const todayDate = new Date().toISOString().split('T')[0];
 
     const datePickerEl = screen.getByLabelText(/choose the date/i);
 
     expect(datePickerEl).toBeInTheDocument();
+    expect(datePickerEl.value).toBe(todayDate);
   });
   it('should not show APOD data before api is not fetched', () => {
     setup();
