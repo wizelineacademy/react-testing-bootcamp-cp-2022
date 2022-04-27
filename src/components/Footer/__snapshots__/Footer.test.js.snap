@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer should render the footer text 1`] = `
+<div>
+  <footer>
+    <p
+      class="sc-bczRLJ hAGsLM"
+    >
+      Project created during Wizeline Academy React Testing Bootcamp
+    </p>
+  </footer>
+</div>
+`;
