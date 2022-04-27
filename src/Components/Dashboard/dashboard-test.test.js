@@ -15,7 +15,11 @@ describe('Dasboard', () => {
     })
     it('the app should show the picture of the day for the given date when the user selects a date', async () => {
         setup()
-        const datePicker = screen.findByRole('textbox', {type: 'date'});
-       // screen.debug();
+        const input = await screen.findByLabelText(/input-date/i)
+        fireEvent.change(input, {target: {value: '2021-02-12'}})
+        const regex = /^\d{4}-\d{2}-\d{2}$/;
+        const imgResult = await screen.findByRole('img', {altText: '2021-02-12'})
+        expect(input.value).toMatch(regex)
+        expect(imgResult).toBeInTheDocument();
     })
 })
