@@ -1,16 +1,20 @@
 import { render, screen, within } from '@testing-library/react';
 import Body from './Body';
 
+const setup = () => {
+  render(<Body />);
+};
+
 describe('Body component', () => {
   it('should have a date picker', () => {
-    render(<Body />);
+    setup();
 
     const datePickerEl = screen.getByLabelText(/choose the date/i);
 
     expect(datePickerEl).toBeInTheDocument();
   });
   it('should not show APOD data before api is not fetched', () => {
-    render(<Body />);
+    setup();
 
     const sectionEl = screen.getByTestId('section');
 
@@ -28,7 +32,7 @@ describe('Body component', () => {
     expect(asideEl).not.toBeInTheDocument();
   });
   it.only('should show APOD data after sucefull api fetch', async () => {
-    render(<Body />);
+    setup();
 
     const sectionEl = await screen.findByTestId('section');
 
