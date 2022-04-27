@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DateField should render the date field and button 1`] = `
+<div>
+  <div
+    class="sc-bczRLJ iIyXGc"
+  >
+    <input
+      class="sc-gsnTZi firLOs"
+      data-testid="date-field"
+      type="date"
+      value=""
+    />
+    <button
+      class="sc-dkzDqf iBZyTi"
+    >
+      Show
+    </button>
+  </div>
+</div>
+`;
