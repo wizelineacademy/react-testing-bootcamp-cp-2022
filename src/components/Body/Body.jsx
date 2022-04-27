@@ -1,40 +1,53 @@
 import { useEffect, useState } from 'react';
+import axios from 'axios';
+
+const fetchData = async ({ setApiData }) => {
+  // set to the isApiFetched state false
+  try {
+    debugger;
+    //  make ajax call
+    const info = await axios.get(
+      `https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY`
+    );
+
+    if (info.status === 200) {
+      setApiData(info.data);
+    }
+    // set to the apiData state
+  } catch (error) {
+    //  handleError
+  }
+};
+
+// let todayDate = new Date();
+// todayDate.toISOString().split('T')[0];
 
 const Body = () => {
-  const [isApiFetched, setIsApiFetched] = useState(false);
   const [apiData, setApiData] = useState({});
-  const handleApi = async () => {
-    // set to the isApiFetched state false
-    try {
-      //  make ajax call
-      // set to the apiData state
-    } catch (error) {
-      //  handleError
-    }
 
-    // set to the isApiFetched state true
-  };
+  useEffect(() => {
+    fetchData({ setApiData });
+  }, []);
 
-  useEffect(() => {});
-
+  let ApodView;
+  if (Object.keys(apiData).length !== 0) {
+    ApodView = (
+      <section data-testid='section'>
+        <h1>{apiData.title}</h1>
+        <span>{apiData.date}</span> // getByText
+        {(apiData.media_type === 'image') &
+        <img src={apiData.url} alt='apo img' />}
+        <aside>{apiData.explanation}</aside>
+      </section>
+    );
+  }
   return (
     <div>
       <div>
         <label htmlFor='apoDate'>Choose the date</label>
         <input type='date' id='apoDate' name='apoDate'></input>
       </div>
-      <section>
-        {isApiFetched &
-        (
-          <>
-            <h1>Image title</h1>
-            <span>apo date</span>
-            <img src='' alt='apo img' />
-
-            <aside>api content</aside>
-          </>
-        )}
-      </section>
+      {ApodView}
     </div>
   );
 };

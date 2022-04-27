@@ -10,9 +10,9 @@ describe('Body component', () => {
     expect(datePickerEl).toBeInTheDocument();
   });
   it('should not show APOD data before api is not fetched', () => {
-    const { container } = render(<Body />);
+    render(<Body />);
 
-    const sectionEl = container.querySelector('section');
+    const sectionEl = screen.getByTestId('section');
 
     const imgEl = within(sectionEl).queryByAltText(/apo img/i);
     const titleEl = within(sectionEl).queryByRole('heading');
@@ -27,17 +27,15 @@ describe('Body component', () => {
     expect(dateEl).not.toBeInTheDocument();
     expect(asideEl).not.toBeInTheDocument();
   });
-  it('should not show APOD data after sucefull api fetch ', () => {
-    const { container } = render(<Body />);
+  it.only('should show APOD data after sucefull api fetch', async () => {
+    render(<Body />);
 
-    const sectionEl = container.querySelector('section');
-
-    const imgEl = within(sectionEl).queryByAltText(/apo img/i);
-    const titleEl = within(sectionEl).queryByRole('heading');
-    const dateEl = within(sectionEl).queryByRole('heading', {
+    const imgEl = await screen.findByAltText(/apo img/i);
+    const titleEl = await screen.findByRole('heading');
+    const dateEl = await screen.findByRole('heading', {
       name: /^\d{2}\/\d{2}\/\d{4}$/
     });
-    const asideEl = within(sectionEl).queryByRole('complementary');
+    const asideEl = await screen.findByRole('complementary');
 
     // Before the api is used
     expect(imgEl).toBeInTheDocument();
@@ -46,3 +44,6 @@ describe('Body component', () => {
     expect(asideEl).toBeInTheDocument();
   });
 });
+
+// Loader
+// Future date (error msg)
