@@ -2,7 +2,7 @@
 
 exports[`Test for Main section should match with snapshot for skeleton purposes 1`] = `
 <div>
-  <div
+  <main
     class="MuiBox-root css-wxwvyg"
   >
     <form
@@ -113,6 +113,6 @@ exports[`Test for Main section should match with snapshot for skeleton purposes 
         </p>
       </div>
     </div>
-  </div>
+  </main>
 </div>
 `;
