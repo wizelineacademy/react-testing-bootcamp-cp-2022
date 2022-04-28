@@ -9,16 +9,21 @@ const fetchData = async ({ setApiData, date }) => {
       `https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date=${date}`
     );
 
-    if (info.status === 200) {
-      setApiData(info.data);
-    }
-    // set to the apiData state
+    // adding the code status
+    setApiData({ ...info.data, code: info.status });
   } catch (error) {
     //  handleError
+    setApiData(error.response.data);
   }
 };
 
-export const todayDate = new Date().toISOString().split('T')[0];
+// export const todayDate = new Date().toISOString().split('T')[0];
+
+let todayDate = new Date();
+// add 5 days
+todayDate = new Date(todayDate.setDate(todayDate.getDate() + 5))
+  .toISOString()
+  .split('T')[0];
 
 const Body = () => {
   const [apiData, setApiData] = useState({});
@@ -34,14 +39,22 @@ const Body = () => {
 
   let ApodView;
   if (Object.keys(apiData).length !== 0) {
-    ApodView = (
-      <section data-testid='section'>
-        {apiData.title && <h1>{apiData.title}</h1>}
-        {apiData.date && <div>{apiData.date}</div>}
-        {apiData.url && <img src={apiData.url} alt='apo img' />}
-        {apiData.explanation && <aside>{apiData.explanation}</aside>}
-      </section>
-    );
+    if (apiData.code >= 400) {
+      ApodView = (
+        <section data-testid='error'>
+          {apiData.msg && <h1>{apiData.msg}</h1>}
+        </section>
+      );
+    } else {
+      ApodView = (
+        <section data-testid='section'>
+          {apiData.title && <h1>{apiData.title}</h1>}
+          {apiData.date && <div>{apiData.date}</div>}
+          {apiData.url && <img src={apiData.url} alt='apo img' />}
+          {apiData.explanation && <aside>{apiData.explanation}</aside>}
+        </section>
+      );
+    }
   }
   return (
     <div>
