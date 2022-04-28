@@ -4,7 +4,7 @@ import Main from ".";
 
 describe("Main page", () => {
 	it("should render header, content, and footer", () => {
-		render(<Main />);
+		const { container } = render(<Main />);
 
 		const header = screen.getByRole("heading", {
 			name: /nasa's picture of the day/i,
@@ -17,5 +17,6 @@ describe("Main page", () => {
 		expect(header).toBeInTheDocument();
 		expect(content).toBeInTheDocument();
 		expect(footer).toBeInTheDocument();
+		expect(container).toMatchSnapshot();
 	});
 });

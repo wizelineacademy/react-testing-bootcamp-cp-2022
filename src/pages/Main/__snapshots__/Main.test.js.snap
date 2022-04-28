@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Main page should render header, content, and footer 1`] = `
+<div>
+  <header>
+    <h1
+      class="sc-gsnTZi bKySKi"
+    >
+      Nasa's picture of the day
+    </h1>
+  </header>
+  <div
+    class="sc-dkzDqf cvGcvx"
+  >
+    <input
+      class="sc-hKMtZM gsOFdg"
+      data-testid="date-field"
+      type="date"
+      value="2022-04-28"
+    />
+    <button
+      class="sc-eCYdqJ dNVnSQ"
+    >
+      Show
+    </button>
+  </div>
+  <p>
+    Loading...
+  </p>
+  <footer>
+    <p
+      class="sc-bczRLJ hAGsLM"
+    >
+      Project created during Wizeline Academy React Testing Bootcamp
+    </p>
+  </footer>
+</div>
+`;
