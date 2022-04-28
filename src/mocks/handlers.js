@@ -1,8 +1,23 @@
 import { rest } from 'msw';
 
+const todayDate = new Date().toISOString().split('T')[0];
+
 export const handlers = [
   rest.get('https://api.nasa.gov/planetary/apod', (req, res, ctx) => {
-    // req queryString date if > off currrent date
+    const date = req.url.searchParams.get('date');
+
+    // Will check if date is bigger than todayDate
+    if (new Date(date) > new Date(todayDate)) {
+      return res(
+        // Respond with a 200 status code
+        ctx.status(400),
+        ctx.json({
+          code: 400,
+          msg: 'Date must be between Jun 16, 1995 and Apr 28, 2022.',
+          service_version: 'v1'
+        })
+      );
+    }
 
     return res(
       // Respond with a 200 status code

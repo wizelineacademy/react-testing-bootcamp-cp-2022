@@ -18,7 +18,7 @@ const fetchData = async ({ setApiData, date }) => {
   }
 };
 
-const todayDate = new Date().toISOString().split('T')[0];
+export const todayDate = new Date().toISOString().split('T')[0];
 
 const Body = () => {
   const [apiData, setApiData] = useState({});
