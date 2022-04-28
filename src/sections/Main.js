@@ -6,7 +6,7 @@ import Content from '../components/main/Content';
 
 import '../App.css';
 
-const regex = RegExp(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/)
+const regex = RegExp(/^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)
 
 const URL_ENDPOINT = process.env.REACT_APP_NASA_API;
 const KEY_NASA = process.env.REACT_APP_TOKEN;
