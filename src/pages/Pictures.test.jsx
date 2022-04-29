@@ -31,10 +31,17 @@ describe('Pictures Component', () => {
 
         expect(imageEl).toBeInTheDocument();
     });
-    
-    it.todo('should show the picture of the day for the given date');
-    
+
+    it.todo('should show the picture of the day for the given date'
+    // () => {
+    //     setup();
+    //     const datePickerButtonEl = screen.getAllByRole('button');
+
+    //     expect(datePickerButtonEl).toBeInTheDocument();
+    // }
+    );
+
     it.todo('should show the message: "There was an error, please try again." when there is an unexpected error while fetching the API');
-    
+
     it.todo('should show a message from the API response (e.g., a day after the current date.), when the user selects an invalid date value and clicks on the show button');
 });
