@@ -18,7 +18,9 @@ const inputStyle = {
 export const Main = () => {
   const [formatedDate, setFormatedDate] = useState("");
   const [pic, setPic] = useState(null);
+  const [error, setError] = useState(false);
   const [date, setDate] = useState(new Date().toISOString().substring(0, 10));
+  const [wrongDate, setWrongDate] = useState(null);
   const [url, setUrl] = useState(
     `https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`
   );
@@ -34,45 +36,62 @@ export const Main = () => {
   }, [date]);
 
   useEffect(() => {
-      setPic(null);
+    setPic(null);
     fetch(url)
       .then((data) => data.json())
       .then((data) => {
-        setPic(data);
-        setFormatedDate(
-          new Date(data.date).toLocaleDateString("es-MX", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-          })
-        );
+        if ("code" in data) {
+          setWrongDate(data);
+        } else {
+          setPic(data);
+          setFormatedDate(
+            new Date(data.date + "T10:00:00Z").toLocaleDateString("es-MX", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+            })
+          );
+        }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setError(true);
+        console.log(err);
+      });
   }, [url]);
 
   return (
     <div style={style}>
-      <input
-        type="date"
-        name="date"
-        id="date"
-        data-testid="dateInput"
-        style={inputStyle}
-        value={date}
-        onChange={(event) => {
-          setDate(new Date(event.target.value).toISOString().substring(0, 10));
-        }}
-      />
-      { pic === null && 
-        <POD />
-      }
-      {pic !== null && (
-        <POD
-          title={pic.title}
-          date={formatedDate}
-          url={pic.url}
-          explanation={pic.explanation}
-        />
+      {error && <h2>There was an error, please try again.</h2>}
+      {wrongDate && (
+        <h2>
+          {wrongDate.code} - {wrongDate.msg}
+        </h2>
+      )}
+      {!error && wrongDate === null && (
+        <>
+          <input
+            type="date"
+            name="date"
+            id="date"
+            data-testid="dateInput"
+            style={inputStyle}
+            value={date}
+            onChange={(event) => {
+              setDate(
+                new Date(event.target.value).toISOString().substring(0, 10)
+              );
+            }}
+          />
+          {pic === null && <POD />}
+          {pic !== null && (
+            <POD
+              title={pic.title}
+              date={formatedDate}
+              url={pic.url}
+              explanation={pic.explanation}
+            />
+          )}
+        </>
       )}
     </div>
   );

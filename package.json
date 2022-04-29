@@ -1,6 +1,7 @@
 {
   "name": "react-testing-bootcamp-cp",
   "version": "0.1.0",
+  "homepage": "https://gabriel-eb.github.io/react-testing-bootcamp-cp-2022/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.3",
@@ -13,6 +14,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
