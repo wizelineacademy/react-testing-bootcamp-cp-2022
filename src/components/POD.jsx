@@ -40,7 +40,7 @@ export const POD = ({ title, date, url, explanation }) => {
       </div>
       <div style={textStyle}>
         <p>
-          {explanation && (
+          {explanation ||(
             <>
               {" "}
               Lorem ipsum dolor sit amet consectetur adipisicing elit. A

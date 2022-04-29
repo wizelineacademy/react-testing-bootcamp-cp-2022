@@ -19,9 +19,23 @@ export const Main = () => {
   const [formatedDate, setFormatedDate] = useState("");
   const [pic, setPic] = useState(null);
   const [date, setDate] = useState(new Date().toISOString().substring(0, 10));
+  const [url, setUrl] = useState(
+    `https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`
+  );
 
   useEffect(() => {
-    fetch(`https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`)
+    if (date !== new Date().toISOString().substring(0, 10)) {
+      setUrl(
+        `https://api.nasa.gov/planetary/apod?api_key=${API_KEY}&date=${date}`
+      );
+    } else {
+      setUrl(`https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`);
+    }
+  }, [date]);
+
+  useEffect(() => {
+      setPic(null);
+    fetch(url)
       .then((data) => data.json())
       .then((data) => {
         setPic(data);
@@ -34,8 +48,7 @@ export const Main = () => {
         );
       })
       .catch((err) => console.log(err));
-  }, []);
-
+  }, [url]);
 
   return (
     <div style={style}>
@@ -43,13 +56,17 @@ export const Main = () => {
         type="date"
         name="date"
         id="date"
+        data-testid="dateInput"
         style={inputStyle}
         value={date}
         onChange={(event) => {
-            setDate(new Date(event.target.value).toISOString().substring(0, 10))
+          setDate(new Date(event.target.value).toISOString().substring(0, 10));
         }}
       />
-      {pic && (
+      { pic === null && 
+        <POD />
+      }
+      {pic !== null && (
         <POD
           title={pic.title}
           date={formatedDate}

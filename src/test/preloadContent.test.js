@@ -16,13 +16,12 @@ describe("Test preload content in the App", () => {
     const imageTitle = screen.getByText(/Loading picture.../);
     const imageDate = screen.getByText(/Loading date.../);
     const imageAtl = screen.getByAltText(/Loading picture.../);
-    const pText = screen.getAllByText(/Lorem/);
+    const pText = screen.getByText(/Lorem/);
 
     expect(imageTitle.innerHTML).toBe("Loading picture...");
     expect(imageDate.innerHTML).toBe("Loading date...");
     expect(imageAtl.alt).toBe("Loading picture...");
-    expect(pText.length).toBeGreaterThan(0);
-    expect(pText[0].innerHTML).toContain("Lorem");
+    expect(pText.innerHTML).toContain("Lorem");
   });
 
   it("shows the footer text", () => {
