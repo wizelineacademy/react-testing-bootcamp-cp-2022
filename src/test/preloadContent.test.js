@@ -1,20 +1,18 @@
 import { render, screen } from "@testing-library/react";
-import App from "../App.js";
+import { Footer } from "../components/Footer.jsx";
+import { Header } from "../components/Header.jsx";
+import { Main } from "../components/Main.jsx";
 
 describe("Test preload content in the App", () => {
-  const setup = () => {
-    render(<App />);
-  };
-
   it("shows the header text", () => {
-    setup();
-    const footerText = screen.getByText(/NASA - Picture of the Day/);
+    render(<Header />);
+    const headerText = screen.getByText(/NASA - Picture of the Day/);
 
-    expect(footerText.innerHTML).toBe("NASA - Picture of the Day");
+    expect(headerText.innerHTML).toBe("NASA - Picture of the Day");
   });
 
   it("shows the main content preload text", () => {
-    setup();
+    render(<Main />);
     const imageTitle = screen.getByText(/Loading picture.../);
     const imageDate = screen.getByText(/Loading date.../);
     const imageAtl = screen.getByAltText(/Loading picture.../);
@@ -28,7 +26,7 @@ describe("Test preload content in the App", () => {
   });
 
   it("shows the footer text", () => {
-    setup();
+    render(<Footer />);
     const footerText = screen.getByText(
       /Project created during Wizeline Academy React Testing Bootcamp/
     );
