@@ -1,5 +1,5 @@
 import { rest } from 'msw';
-import { todayDate } from './../components/Body/Body';
+import { todayDate } from './../components/Body';
 
 export const handlers = [
   rest.get('https://api.nasa.gov/planetary/apod', (req, res, ctx) => {

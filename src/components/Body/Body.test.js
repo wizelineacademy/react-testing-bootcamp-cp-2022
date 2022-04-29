@@ -1,5 +1,5 @@
 import { render, screen, within, fireEvent } from '@testing-library/react';
-import Body, { todayDate } from './Body';
+import Body, { todayDate } from '.';
 
 const setup = () => {
   render(<Body />);
