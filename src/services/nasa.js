@@ -1,4 +1,4 @@
-export const getApod = async ({ date }) => {
+export const getApodBy = async ({ date }) => {
   try {
     const url = new URL(process.env.REACT_APP_NASA_APOD_URL)
 

@@ -1,21 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Apod } from '../components/Apod'
-import { ApodError } from '../components/Apod'
-import { getApod } from '../services/nasa'
 import { Grid, Input, Spacer } from '@nextui-org/react'
 
 export const Home = () => {
-  const [apod, setApod] = useState(null)
-  const [error, setError] = useState(null)
   const [date, setDate] = useState(Intl.DateTimeFormat("en-CA").format(Date.now()))
-
-  useEffect(() => {
-    getApod({ date })
-      .then(([apod, error]) => {
-        setApod(apod)
-        setError(error)
-      })
-  }, [date])
 
   const handleDateChange = (e) => {
     if (!e.currentTarget.validity.valid) return
@@ -36,8 +24,7 @@ export const Home = () => {
         </Grid>
       </form>
       <Spacer y={1} />
-      {error && <ApodError {...error} />}
-      {apod && <Apod {...apod} />}
+      <Apod date={date} />
     </section>
   )
 }

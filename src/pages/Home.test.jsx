@@ -5,27 +5,23 @@ import { Home } from './Home'
 
 const setup = () => render(<Home />)
 
+beforeEach(() => setup())
+
 describe('Home', () => {
   it('should pick today\'s date as default and get and apod', async () => {
-    setup()
-
-    const today = Intl.DateTimeFormat("en-CA").format(Date.now())
+    const today = Intl.DateTimeFormat('en-CA').format(Date.now())
 
     const datePicker = screen.getByLabelText(/pick a date:/i)
 
     expect(datePicker).toHaveValue(today)
 
-    await waitFor(() => screen.getByRole('heading'))
-
-    const apodTitle = screen.getByRole('heading')
+    const apodTitle = await screen.findByRole('heading')
 
     expect(apodTitle).toBeInTheDocument()
   })
 
   it('should pick "2022-04-21" as date and get an apod', async () => {
-    setup()
-
-    const pastDate = '2022-04-21'
+    const pastDate = Intl.DateTimeFormat('en-CA', { timeZone: 'UTC' }).format(new Date('2022-04-21'))
 
     const datePicker = screen.getByLabelText(/pick a date:/i)
 
@@ -33,9 +29,7 @@ describe('Home', () => {
 
     expect(datePicker).toHaveValue(pastDate)
 
-    await waitFor(() => screen.getByText(pastDate))
-
-    const apodDate = screen.getByText(pastDate)
+    const apodDate = await screen.findByText(pastDate)
 
     expect(apodDate).toBeInTheDocument()
     expect(apodDate).toHaveTextContent(pastDate)
@@ -55,9 +49,7 @@ describe('Home', () => {
       }),
     )
 
-    setup()
-
-    const outOfRangeDate = '1990-08-25'
+    const outOfRangeDate = Intl.DateTimeFormat('en-CA', { timeZone: 'UTC' }).format(new Date('1990-08-25'))
 
     const datePicker = screen.getByLabelText(/pick a date:/i)
 
@@ -65,9 +57,7 @@ describe('Home', () => {
 
     expect(datePicker).toHaveValue(outOfRangeDate)
 
-    await waitFor(() => screen.getByText(/there was an error, please try again./i))
-
-    const error = screen.getByText(/there was an error, please try again./i)
+    const error = await screen.findByText(/there was an error, please try again./i)
 
     expect(error).toBeInTheDocument()
   })

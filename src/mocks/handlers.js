@@ -2,7 +2,7 @@ import { rest } from 'msw'
 
 export const handlers = [
   rest.get(process.env.NASA_APOD_URL, (req, res, ctx) => {
-    req.url.searchParams.set('api_key', process.env.NASA_API_KEY)
+    req.url.searchParams.set('api_key', 'fAket0keN')
     req.url.searchParams.set('date', '2022-04-21')
 
     return res(

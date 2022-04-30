@@ -3,28 +3,16 @@ import { Layout } from '.'
 
 const setup = () => render(<Layout />)
 
+beforeEach(() => setup())
+
 describe('Layout', () => {
-  it('should contains the header component', () => {
-    setup()
-
+  it('should render layout elements correctly', () => {
     const header = screen.getByRole('banner')
-
-    expect(header).toBeInTheDocument()
-  })
-
-  it('should contains a main section', () => {
-    setup()
-
     const main = screen.getByRole('main')
-
-    expect(main).toBeInTheDocument()
-  })
-
-  it('should contains the footer component', () => {
-    setup()
-
     const footer = screen.getByRole('contentinfo')
 
+    expect(header).toBeInTheDocument()
+    expect(main).toBeInTheDocument()
     expect(footer).toBeInTheDocument()
   })
 })
