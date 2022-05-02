@@ -32,7 +32,7 @@ const Main = () => {
     [REACT_APP_API_KEY_NASA_POD, REACT_APP_API_URL]
   );
 
-  const sendNotificationError = ({ msg = "estoy mandnando error" }) => {
+  const sendNotificationError = ({ msg = "" }) => {
     notification["error"]({
       message: "Error",
       description: msg,
