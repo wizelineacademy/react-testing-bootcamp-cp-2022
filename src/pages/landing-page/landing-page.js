@@ -1,63 +1,62 @@
 import React, { useState, useEffect } from "react";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import DatePicker from "@mui/lab/DatePicker";
+import DatePicker from "react-datepicker";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import TextField from "@mui/material/TextField";
 
-import { getTodayPicture, getDatePicture } from "../../services";
+import { getDatePicture } from "../../services";
 import { Header } from "../../components/header";
 import { Footer } from "../../components/footer";
 import Typography from "@mui/material/Typography";
 
+import "react-datepicker/dist/react-datepicker.css";
+
 export const LandingPage = () => {
-  const [response, setResponse] = useState("");
-  const [date, setDate] = useState();
-  const [error, setError] = useState("");
+  const [data, setData] = useState({
+    title: "",
+    date: "",
+    url: "",
+    explanation: "",
+    error: "",
+    message: "",
+  });
+  const [date, setDate] = useState(new Date());
 
   const loadImage = async () => {
     try {
-      const response = await getTodayPicture();
-      const { data } = response;
-      setResponse(data);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const updateImage = async () => {
-    try {
-      const strDate = JSON.stringify(date).split("T")[0].slice(1);
+      const strDate = new Date(
+        date.getTime() - date.getTimezoneOffset() * 60000
+      )
+        .toISOString()
+        .split("T")[0];
       const response = await getDatePicture({ date: strDate });
       const { data } = response;
-      setResponse(data);
-      setError("");
+      setData({
+        title: data.title,
+        date: data.date,
+        url: data.url,
+        explanation: data.explanation,
+      });
     } catch (e) {
       try {
-        if (e.response.status === 400) {
-          const data = {
-            code: "400 BAD REQUEST",
-            message: e.message,
-          };
-          setError(data);
-          setResponse("");
+        if (e.response.status === 400 || e.response.status === 404) {
+          setData({
+            error: "Error " + e.response.data.code,
+            message: e.response.data.msg,
+          });
         }
-      } catch (e) {
-        const data = {
-          code: "500 INTERNAL SERVER ERROR",
+      } catch (err) {
+        setData({
+          error: "Error 500",
           message: "There was an error, please try again.",
-        };
-        setError(data);
-        setResponse("");
+        });
       }
     }
   };
 
   useEffect(() => {
     loadImage();
-  }, []);
+  }, [date]);
 
   return (
     <Container>
@@ -69,17 +68,12 @@ export const LandingPage = () => {
         alignItems="center"
       >
         <Grid item xs={12} textAlign="center">
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DatePicker
-              label="Picture of the Day"
-              value={date}
-              onChange={(newValue) => {
-                setDate(newValue);
-                updateImage();
-              }}
-              renderInput={(params) => <TextField {...params} />}
-            />
-          </LocalizationProvider>
+          <DatePicker
+            popperPlacement="bottom"
+            selected={date}
+            onChange={(date) => setDate(date)}
+            dateFormat="dd/MM/yyyy"
+          />
         </Grid>
         <Grid item xs={12} textAlign="center">
           <Typography
@@ -88,10 +82,10 @@ export const LandingPage = () => {
             align="center"
             sx={{ paddingBottom: "10px" }}
           >
-            {error.code}
+            {data.error}
           </Typography>
           <Typography variant="body2" align="justify">
-            {error.message}
+            {data.message}
           </Typography>
         </Grid>
         <Grid item xs={6}>
@@ -101,10 +95,10 @@ export const LandingPage = () => {
             align="center"
             sx={{ paddingBottom: "10px" }}
           >
-            {response.title}
+            {data.title}
           </Typography>
           <Typography variant="body2" align="right">
-            {response.date}
+            {data.date}
           </Typography>
           <Box
             component="img"
@@ -112,12 +106,12 @@ export const LandingPage = () => {
               width: "100%",
             }}
             alt="Picture of the day"
-            src={response.url}
+            src={data.url}
           />
         </Grid>
         <Grid item xs={6}>
           <Typography variant="body2" align="justify" component={"span"}>
-            {response.explanation}
+            {data.explanation}
           </Typography>
         </Grid>
       </Grid>
@@ -125,3 +119,5 @@ export const LandingPage = () => {
     </Container>
   );
 };
+
+export default LandingPage;

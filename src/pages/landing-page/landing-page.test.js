@@ -1,6 +1,6 @@
-import { render, screen, waitFor, fireEvent } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 
-import { LandingPage } from ".";
+import LandingPage from ".";
 import userEvent from "@testing-library/user-event";
 
 const setup = () => render(<LandingPage />);
@@ -42,18 +42,40 @@ describe("Main Section", () => {
 
   it("when the user selects a specific date with the format YYYY-MM-DD, the app should show the picture of the day for the given date", async () => {
     setup();
-    const dateInputEl = screen.getByLabelText(/picture of the day/i);
-    userEvent.type(dateInputEl, "2020-01-01"); // type anything
-    const chosenDate = screen.getByRole("button", { name: "Apr 30, 2022" }); // choose any date that the calender shows
-    fireEvent.click(chosenDate);
-    expect(chosenDate).toBeInTheDocument();
+    const dateInputEl = screen.getByRole("textbox");
+    userEvent.clear(dateInputEl);
+    userEvent.type(dateInputEl, "01/01/2020"); // type anything
+    expect(dateInputEl).toHaveAttribute("value", "01/01/2020");
+    const pictureOfTheDay = await screen.findByAltText(/picture of the day/i);
+    await waitFor(() =>
+      expect(pictureOfTheDay).toHaveAttribute(
+        "src",
+        "https://apod.nasa.gov/apod/image/2001/BetelgeuseImagined_EsoCalcada_960.jpg"
+      )
+    );
   });
 
-  it.todo(
-    'when the app fetches the API, and there is an unexpected error, the app should show a message: "There was an error, please try again."'
-  );
+  it('when the app fetches the API, and there is an unexpected error, the app should show a message: "There was an error, please try again."', async () => {
+    setup();
+    const dateInputEl = screen.getByRole("textbox");
+    userEvent.clear(dateInputEl);
+    userEvent.type(dateInputEl, ""); // type anything
+    expect(dateInputEl).toHaveAttribute("value", "");
+    const errorEl = await screen.findByText(
+      /there was an error, please try again./i
+    );
+    await waitFor(() => expect(errorEl).toBeInTheDocument());
+  });
 
-  it.todo(
-    "when the user selects an invalid date value and clicks on the show button, the app should show a message from the API response (e.g., a day after the current date.)"
-  );
+  it("when the user selects an invalid date value and clicks on the show button, the app should show a message from the API response (e.g., a day after the current date.)", async () => {
+    setup();
+    const dateInputEl = screen.getByRole("textbox");
+    userEvent.clear(dateInputEl);
+    userEvent.type(dateInputEl, "01/01/2030"); // type anything
+    expect(dateInputEl).toHaveAttribute("value", "01/01/2030");
+    const errorEl = await screen.findByText(
+      /date must be between jun 16, 1995 and may 03, 2022./i
+    );
+    await waitFor(() => expect(errorEl).toBeInTheDocument());
+  });
 });
