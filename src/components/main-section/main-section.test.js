@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { server } from '../../mocks/server';
 import { MainSection } from '.';
 
@@ -8,6 +8,30 @@ describe('<MainSection />', () => {
   beforeAll(() => server.listen());
   afterEach(() => server.resetHandlers());
   afterAll(() => server.close());
+
+  beforeEach(() => {
+    // add window.matchMedia
+    // this is necessary for the date picker to be rendered in desktop mode.
+    // if this is not provided, the mobile mode is rendered, which might lead to unexpected behavior
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: (query) => ({
+        media: query,
+        // this is the media query that @material-ui/pickers uses to determine if a device is a desktop device
+        matches: query === '(pointer: fine)',
+        onchange: () => {},
+        addEventListener: () => {},
+        removeEventListener: () => {},
+        addListener: () => {},
+        removeListener: () => {},
+        dispatchEvent: () => false,
+      }),
+    });
+  });
+
+  afterEach(() => {
+    delete window.matchMedia;
+  });
 
   it('Should render MainSection successfully', () => {
     setup();
@@ -19,6 +43,21 @@ describe('<MainSection />', () => {
     const pickerEl = screen.getByLabelText(/select a date/i);
 
     expect(pickerEl).toBeInTheDocument();
+  });
+
+  it('Should render an error when invalid date is selected', async () => {
+    setup();
+
+    const pickerEl = screen.getByLabelText(/select a date/i);
+    const invalidDate = '2100-01-01';
+
+    fireEvent.click(pickerEl);
+    fireEvent.change(pickerEl, { target: { value: invalidDate } });
+
+    const errorEl = await screen.findByText(/there was an error, please try again./i);
+
+    expect(errorEl).toBeInTheDocument();
+    expect(pickerEl.value).toBe(invalidDate);
   });
 
 

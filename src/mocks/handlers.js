@@ -2,6 +2,15 @@ import { rest } from 'msw';
 
 export const handlers = [
   rest.get('https://api.nasa.gov/planetary/apod', (req, res, ctx) => {
+
+    const date = req.url.searchParams.get('date');
+
+    if (date === '2100-01-01') {
+      return res(
+        ctx.status(400)
+      );
+    }
+
     return res(
       ctx.status(200),
       ctx.json({
