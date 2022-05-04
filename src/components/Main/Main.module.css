@@ -1,0 +1,29 @@
+.container {
+  width: 100%;
+  flex: auto;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 25px;
+  padding-top: 25px;
+}
+
+.infoContainer {
+  display: flex;
+  background-color: blue;
+}
+
+.image,
+.text {
+  width: 50%;
+}
+
+.spinner {
+  height: 100%;
+}
