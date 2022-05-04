@@ -88,7 +88,7 @@ describe('Pictures Component', () => {
 
     // 404 - unexpected error
     it('should show the message: "There was an error, please try again." when there is an unexpected error while fetching the API', async () => {
-        // mock 
+        // mock error case
         server.use(
             rest.get(`${NASA_BASE_URL}`, async (req, res, ctx) => {
                 return res(ctx.status(500), ctx.json({message: 'Unexpected Error!'}))
