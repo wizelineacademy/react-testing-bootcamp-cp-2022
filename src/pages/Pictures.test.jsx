@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import userEvent from '@testing-library/user-event';
 import { server } from '../mocks/server';
 import { rest } from 'msw';
@@ -49,10 +49,11 @@ describe('Pictures Component', () => {
     it('should show the picture of the day for the given date', async () => {
         const { click } = userEvent.setup();
         setup()
+
         // wait for the current day image to load (default img)
-        const firstImageEl = await waitFor(() => screen.findByRole('img', { name: /picture of the day/i }, { timeout: 3000 }));
-        expect(firstImageEl).toBeInTheDocument();
-        expect(firstImageEl.src).toEqual('https://apod.nasa.gov/apod/image/2203/VenusMars_Fairbairn_960.jpg');
+        const defaultImageEl = await waitFor(() => screen.findByRole('img', { name: /picture of the day/i }, { timeout: 3000 }));
+        expect(defaultImageEl).toBeInTheDocument();
+        expect(defaultImageEl.src).toEqual('https://apod.nasa.gov/apod/image/2203/VenusMars_Fairbairn_960.jpg');
 
         // get all buttons from the UI, there should be only 2
         // 0. datepicker - clear date button
@@ -72,26 +73,26 @@ describe('Pictures Component', () => {
         const activeDayButton = buttonEls.find(btn => btn.className.includes('react-calendar__tile--active'));
         // get the current selected day
         const currDay = Number(activeDayButton.textContent);
-        // calculate the next day, less thant 27 to be within a safe range
-        const nextDay = currDay > 27 ? 1 : currDay + 1;
-        // get the next day button
-        const nextDayButton = buttonEls.find(btn => btn.textContent === nextDay.toString());
+        // calculate the previous day, days range between 1 and 27 to keep it in a safe range
+        const prevDay = currDay === 1 ? 28 : currDay - 1;
+        // get the previous day button
+        const prevDayButton = buttonEls.find(btn => btn.textContent === prevDay.toString());
 
         // change the selected day in the calendar
-        await click(nextDayButton);
+        await click(prevDayButton);
 
         // wait for the next day image to load
-        const secondImageEl = await waitFor(() => screen.findByRole('img', { name: /picture of the day/i }, { timeout: 3000 }));
-        expect(secondImageEl).toBeInTheDocument();
-        expect(secondImageEl.src).toEqual('https://apod.nasa.gov/apod/image/2204/CmbDipole_cobe_960.jpg');
+        const newImageEl = await waitFor(() => screen.findByRole('img', { name: /picture of the day/i }, { timeout: 3000 }));
+        expect(newImageEl).toBeInTheDocument();
+        expect(newImageEl.src).toEqual('https://apod.nasa.gov/apod/image/2204/CmbDipole_cobe_960.jpg');
     });
 
-    // 404 - unexpected error
+    // unexpected error
     it('should show the message: "There was an error, please try again." when there is an unexpected error while fetching the API', async () => {
         // mock error case
         server.use(
             rest.get(`${NASA_BASE_URL}`, async (req, res, ctx) => {
-                return res(ctx.status(500), ctx.json({message: 'Unexpected Error!'}))
+                return res(ctx.status(500), ctx.json({msg: 'There was an error, please try again.'}))
             })
         );
         setup();
@@ -100,5 +101,48 @@ describe('Pictures Component', () => {
     });
 
     // expected error
-    it.todo('should show a message from the API response (e.g., a day after the current date.), when the user selects an invalid date value and clicks on the show button');
+    it('should show a message from the API response, when the user selects an invalid date(later than today)', async () => {
+        setup()
+        // wait for the current day image to load (default img)
+        await waitFor(() => screen.findByRole('img', { name: /picture of the day/i }, { timeout: 3000 }));
+
+        // get all inputs from the UI, there should be only 3 inputs(spinbutton)
+        // since the date-picker component renders the inputs as buttons with "spinbutton" role for each date field(month, day, year)
+        // 0. datepicker - month
+        // 1. datepicker - day
+        // 2. datepicker - year
+        const yearInputEl = screen.getAllByRole('spinbutton')[2];
+
+        // not sure why, but user-event is not working for the datepicker component
+        // had to use fireEvent to be able to change the year of the datepicker
+        fireEvent.change(yearInputEl, {
+            target: { value: '2222' },
+        });
+
+        const errorEl = await waitFor(() => screen.findByText(/error/i, { timeout: 3000 }));
+        expect(errorEl).toHaveTextContent(/date must be between Jun 16 1995 and/i);
+    });
+
+    // expected error
+    it('should show a message from the API response, when the user selects an invalid date(previous to Jun 16, 1995)', async () => {
+        setup()
+        // wait for the current day image to load (default img)
+        await waitFor(() => screen.findByRole('img', { name: /picture of the day/i }, { timeout: 3000 }));
+
+        // get all inputs from the UI, there should be only 3 inputs(spinbutton)
+        // since the date-picker component renders the inputs as buttons with "spinbutton" role for each date field(month, day, year)
+        // 0. datepicker - month
+        // 1. datepicker - day
+        // 2. datepicker - year
+        const yearInputEl = screen.getAllByRole('spinbutton')[2];
+
+        // not sure why, but user-event is not working for the datepicker component
+        // had to use fireEvent to be able to change the year of the datepicker
+        fireEvent.change(yearInputEl, {
+            target: { value: '1900' },
+        });
+
+        const errorEl = await waitFor(() => screen.findByText(/error/i, { timeout: 3000 }));
+        expect(errorEl).toHaveTextContent(/date must be between Jun 16 1995 and/i);
+    });
 });
