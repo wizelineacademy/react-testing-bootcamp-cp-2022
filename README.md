@@ -5,7 +5,7 @@
 Follow these steps:
 <ol>
   <li>Fork  <a href=
-              https://github.com/wizelineacademy/URL-CAPSTONE-PROJECT">this repo</a> into your GitHub account.
+              “https://github.com/wizelineacademy/react-testing-bootcamp-cp-2022.git”>this repo</a> into your GitHub account.
   <li>Make sure that your new repo is publicly accessible.
   <li>Create a new branch with the name <b>“feat/deliverable”</b> derived from <b>main</b> on your forked repository.
   <li>Start working on the requirements specified below.
